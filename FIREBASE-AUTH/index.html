@@ -1,0 +1,237 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <title>Sitemebelz</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body class="grey lighten-3">
+
+  <!-- NAVBAR -->
+  <nav class="z-depth-0 grey lighten-4">
+    <div class="nav-wrapper container">
+      <a href="#" class="brand-logo">
+        <img src="img/logo.png" style="width: 295px; margin-top: 10px; margin-top: -58px;">
+      </a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li class="logged-in" style="display: none;">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-account">Ваш аккаунт</a>
+          </li>
+          <li class="logged-in" style="display: none;">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-cart">Корзина</a>
+          </li>
+          <li class="logged-in" style="display: none;">
+            <a href="#" class="grey-text" id="logout" onclick="clearCart()">Выйти</a>
+          </li>
+          <li class="logged-in" style="display: none;">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-create">Создать объявление</a>
+          </li>
+          <li class="logged-out" style="display: none;">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-login">Войти</a>
+          </li>
+          <li class="logged-out" style="display: none;">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-signup">Зарегистрироваться</a>
+          </li>
+        </span>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- SIGN UP MODAL -->
+  <div id="modal-signup" class="modal">
+    <div class="modal-content">
+      <h4>Регистрация</h4><br />
+      <form id="signup-form">
+        <div class="input-field">
+          <input type="email" id="signup-email" required />
+          <label for="signup-email">Введите почту</label>
+        </div>
+        <div class="input-field">
+          <input type="password" id="signup-password" required />
+          <label for="signup-password">Введите пароль</label>
+        </div>
+        <div class="input-field">
+          <input type="text" id="signup-bio" required />
+          <label for="signup-bio">Введите ваше имя</label>
+        </div>
+        <button class="btn aquamarine darken-2 z-depth-0">Зарегистрироваться</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- LOGIN MODAL -->
+  <div class="row">
+    <div class="col s12">
+      <div id="modal-login" class="modal">
+        <div class="modal-content">
+          <h4>Вход</h4><br />
+          <form id="login-form">
+            <div class="input-field">
+              <input type="email" id="login-email" required />
+              <label for="login-email">Введите почту</label>
+            </div>
+            <div class="input-field">
+              <input type="password" id="login-password" required />
+              <label for="login-password">Введите пароль</label>
+            </div>
+            <div class="error red-text"></div> <!-- Элемент для отображения сообщения обошибке -->
+            <button class="btn aquamarine darken-2 z-depth-0">Войти</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCOUNT MODAL -->
+  <div id="modal-account" class="modal">
+    <div class="modal-content center-align">
+      <h5>Ваш профиль</h5><br/>
+      <div class="account-details"></div>
+      <h5>Ваши заказы</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Название товара</th>
+            <th></th>
+            <th>Дата покупки</th>
+            <th>Состояние заказа</th>
+          </tr>
+        </thead>
+        <tbody class="order-items">
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- CART MODAL -->
+  <div id="modal-cart" class="modal">
+    <div class="modal-content center-align">
+      <h4>Корзина</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Название товара</th>
+            <th></th>
+            <th>Цена</th>
+          </tr>
+        </thead>
+        <tbody class="cart-items">
+
+        </tbody>
+      </table>
+      
+      <h5 class="total"></h5>
+      <h4>Данные карты</h4>
+      <form id="checkout-form">
+        <div class="input-field">
+          <input type="tel" id="phone" name="phone" pattern="[0-9]{11}" required>
+          <label for="phone">Номер телефона</label>
+        </div>
+        <div class="input-field">
+          <input type="text" id="cardNumber" name="cardNumber" pattern="[0-9]{16}" required>
+          <label for="cardNumber">Номер кредитной карты</label>
+        </div>
+        <div class="input-field">
+          <input type="month" id="expiry" name="expiry" required>
+          <label for="expiry" style="top: -12px;">Дата истечения срока действия (месяц/год)</label>
+        </div>
+        <div class="input-field">
+          <input type="text" id="cvv" name="cvv" pattern="[0-9]{3}" required>
+          <label for="cvv">CVV код</label>
+        </div>
+        <button class="btn aquamarine darken-2 z-depth-0">Оплатить</button>
+      </form>
+    </div>
+  </div> 
+  
+
+  <!-- CREATE GUIDE MODAL -->
+  <div id="modal-create" class="modal">
+    <div class="modal-content">
+      <h4>Сделать объявление</h4><br />
+      <form id="create-form">
+        <div class="input-field">
+          <input type="text" id="title" required>
+          <label for="title">Название товара</label>
+        </div>
+        <div class="input-field">
+          <textarea id="content" class="materialize-textarea" required></textarea>
+          <label for="content">Описание</label>
+        </div>
+        <div class="input-field">
+          <textarea id="price" class="materialize-textarea" required></textarea>
+          <label for="price">Цена</label>
+        </div>
+        <div class="input-field">
+          <textarea id="picture" class="materialize-textarea" required></textarea>
+          <label for="picture">Изображение ( Ссылка )</label>
+        </div>
+        <button class="btn aquamarine darken-2 z-depth-0">Создать</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- GUIDE LIST -->
+  <div class="container" style="margin-top: 40px;">
+    <ul class="collapsible z-depth-0 guides" style="border: none;">
+
+    </ul>
+  </div>
+  
+  
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-firestore.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBg5QZb52z9ziiW5MFehBlCqNRh4BXk5Ck",
+      authDomain: "sitemebelz.firebaseapp.com",
+      projectId: "sitemebelz",
+      storageBucket: "sitemebelz.appspot.com",
+      messagingSenderId: "801048116460",
+      appId: "1:801048116460:web:777fc010a1ff3ec147b9c9",
+      measurementId: "G-P87GZMVKCD"
+    };
+    firebase.initializeApp(config);
+    
+    // make auth and firestore references
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // update firestore settings
+    db.settings({ timestampsInSnapshots: true });
+  </script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="scripts/auth.js"></script>
+  <script src="scripts/index.js"></script>
+</body>
+
+<footer id="page-footer" class="page-footer grey lighten-6">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <h7 class="white-text">Контакты</h7>
+        <p class="grey-text text-lighten-4">Телефон: +7 (999) 123-45-67</p>
+        <p class="grey-text text-lighten-4">E-mail: info@sitemebelz.ru</p>
+      </div>
+      <div class="col l4 offset-l2 s12">
+        <h7 class="white-text">Ссылки</h7>
+        <ul>
+          <li><a class="grey-text text-lighten-3" href="/">Главная</a></li>
+          <li><a class="grey-text text-lighten-3" href="/catalog">Каталог товаров</a></li>
+          <li><a class="grey-text text-lighten-3" href="/contacts">Контакты</a></li>
+          <li><a class="grey-text text-lighten-3" href="/about">О компании</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="center-align grey-text text-lighten-4">© 2023 Sitemebelz. Все права защищены.</p>
+  </div>
+</footer>
+
+</html>    
